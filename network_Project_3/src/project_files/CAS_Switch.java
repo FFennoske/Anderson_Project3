@@ -1,7 +1,9 @@
 package project_files;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -22,6 +24,7 @@ public class CAS_Switch implements Runnable {
 	
 	static protected Map <Integer, Socket> switchingTable = new HashMap <Integer, Socket> (); //Lists all nodes and corresponding sockets in hashmap
 	static protected List<Frame> GlobalFrameBuffer =  Collections.synchronizedList(new ArrayList<>()); //Stores all frames to be sent out
+	static protected List<Firewall> FirewallRules = Collections.synchronizedList(new ArrayList<>()); //Stores all rules for itself to execute
 	
 	public CAS_Switch (int port, int ccsPort) {
 		this.port = port;

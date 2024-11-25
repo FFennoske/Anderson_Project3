@@ -23,8 +23,7 @@ public class CCS_Switch implements Runnable {
 	
 	static protected Map <Integer, Socket> networkTable = new HashMap <Integer, Socket> (); //Lists all switches and corresponding sockets in hashmap
 	static protected List<Frame> GlobalFrameBuffer =  Collections.synchronizedList(new ArrayList<>()); //Stores all frames to be sent out
-	static protected List<Firewall> FirewallSend = Collections.synchronizedList(new ArrayList<>());
-	static protected List<Firewall> FirewallRules = Collections.synchronizedList(new ArrayList<>());
+	static protected List<Firewall> FirewallRules = Collections.synchronizedList(new ArrayList<>()); //Stores all rules for itself to execute and send
 	
 	
 	public CCS_Switch(int port) {
@@ -56,8 +55,8 @@ public class CCS_Switch implements Runnable {
                 DataOutputStream dos = new DataOutputStream(soc.getOutputStream());       
                 
                 networkTable.put(i, soc);
-                System.out.println(Arrays.asList(FirewallSend));
-                forwardRules(i, networkTable, FirewallSend);
+                System.out.println(Arrays.asList(FirewallRules));
+                forwardRules(i, networkTable, FirewallRules);
                 //System.out.println(Arrays.asList(networkTable));
                 i++;
   
@@ -133,7 +132,6 @@ public class CCS_Switch implements Runnable {
   							dos.write(data);
   							dos.flush();
   							System.out.println("RULES SENT TO SWITCH #"+networkN);
-  							CCS_Switch.FirewallSend.remove(r);
   						}
   					}	
   				}
@@ -159,7 +157,6 @@ public class CCS_Switch implements Runnable {
 				}
 				rule = new Firewall(node, Integer.parseInt(line[0]), condition);
 				FirewallRules.add(rule);
-				FirewallSend.add(rule);
 			}
 			br.close();
 		} catch (IOException e) {
