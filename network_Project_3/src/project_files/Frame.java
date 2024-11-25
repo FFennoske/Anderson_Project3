@@ -1,4 +1,4 @@
-package network_files;
+package project_files;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,8 +8,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Frame implements Serializable {
-	private int dst; //The node it's destined for
-	private int src; //The node it originated from
+	private int dstN; //The node it's destined for
+	private int dstS; //The network/switch it's destined for
+	private int srcN; //The node it originated from
+	private int srcS; //The network/switch it originated from
 	private byte crc; //Checksum for values of frame
 	private int len; //Acts as either len of data or the ACK if 0
 	private int ack; //ACK field type if it's an ACK
@@ -19,9 +21,11 @@ public class Frame implements Serializable {
 		super();
 	}
 	
-	public Frame (int dst, int src, byte crc, int len, int ack, String data) {
-		this.src = src;
-		this.dst = dst;
+	public Frame (int dstN, int dstS, int srcN, int srcS, byte crc, int len, int ack, String data) {
+		this.dstN = dstN;
+		this.dstS = dstS;
+		this.srcN = srcN;
+		this.srcS = srcS;
 		this.crc = crc;
 		this.len = len;
 		this.ack = ack;
@@ -47,22 +51,6 @@ public class Frame implements Serializable {
 	    {
 	        return (Frame) in.readObject();
 	    } 
-	}
-
-	public int getDst() {
-		return dst;
-	}
-
-	public void setDst(int dst) {
-		this.dst = dst;
-	}
-
-	public int getSrc() {
-		return src;
-	}
-
-	public void setSrc(int src) {
-		this.src = src;
 	}
 
 	public byte getCrc() {
@@ -95,6 +83,38 @@ public class Frame implements Serializable {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	public int getDstN() {
+		return dstN;
+	}
+
+	public void setDstN(int dstN) {
+		this.dstN = dstN;
+	}
+
+	public int getDstS() {
+		return dstS;
+	}
+
+	public void setDstS(int dstS) {
+		this.dstS = dstS;
+	}
+
+	public int getSrcN() {
+		return srcN;
+	}
+
+	public void setSrcN(int srcN) {
+		this.srcN = srcN;
+	}
+
+	public int getSrcS() {
+		return srcS;
+	}
+
+	public void setSrcS(int srcS) {
+		this.srcS = srcS;
 	}
 		
 		
