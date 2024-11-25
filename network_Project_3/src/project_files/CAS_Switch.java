@@ -38,7 +38,7 @@ public class CAS_Switch implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Switch is now active at - " + ss);
+		System.out.println("A CAS Switch is now active at - " + ss);
 		
 		try {
 			ip = InetAddress.getByName("localhost");
