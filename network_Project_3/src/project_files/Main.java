@@ -12,6 +12,25 @@ public class Main {
 		} else {
 			N = 1;
 		}
+		
+		CCS_Switch ccs = new CCS_Switch(7540);
+		Thread ccs_thd = new Thread(ccs);
+		ccs_thd.start();
+		
+		CAS_Switch cas1 = new CAS_Switch(1, ccs.port);
+		Thread cas1_thd = new Thread(cas1);
+		cas1_thd.start();
+		CAS_Switch cas2 = new CAS_Switch(2, ccs.port);
+		Thread cas2_thd = new Thread(cas2);
+		cas2_thd.start();
+		
+		/**
+		for (int i = 1; i<=N; i++) {
+			Node node = new Node(i, port);
+			Thread node_thd = new Thread(node);
+			node_thd.start();
+		}
+		 */
 
 	}
 
